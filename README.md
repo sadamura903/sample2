@@ -1,40 +1,52 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## 現時点での作成状況
+- 「じゅもん」入力ページのフロントエンド実装
 
-## Getting Started
+（＊「じゅもん」：ランダムなアルファベットの文字列）
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. **入力可能画面**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<img width="1022" alt="「じゅもん」入力画面" src="https://github.com/user-attachments/assets/dbb5aa29-7afb-48c8-a320-aa1c7c106ac8">
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- 現時点では、ユーザー数と文字数は対応されておらず、入力担当者もランダムに設定されています。
+- ランダムに設定された入力可能箇所をクリックし、キーボードでの入力を行います。
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+2. **入力済み画面**
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+<img width="951" alt="「じゅもん」入力画面、入力済み" src="https://github.com/user-attachments/assets/afa1ede7-4205-40f9-93e9-2ef192379f90">
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- 英数字入力・かな入力に関わらず、大文字アルファベット1文字が入力されます。
 
-## Learn More
+## 実装予定
+- **「じゅもん」生成時**
+    - グループ人数に応じた文字数の変化
+    - 各ユーザーに1文字の配布
+    - タスク達成状況の報告
+- **「じゅもん」入力時**
+    - 入力された文字をリアルタイムで反映
+    - すべての文字が入力されたときのみタスク宣言ページに進められるようにする
+    - 時間制限内に完成しなかった場合の処理
+- **データベース関連**
+    - リレーションの設定
+        - グループ - ユーザー
+        - ユーザー - タスク
 
-To learn more about Next.js, take a look at the following resources:
+## アプリ概要
+### アプリ名：**めざめのじゅもん**
+### **コンセプト**
+「めざめのじゅもん」は、毎朝決まった時間に参加者全員で **「じゅもん（ランダムなアルファベットの文字列）」** を完成させることで、就寝・起床時間の定着を促進するWebアプリです。
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+前日の夜に配布されるランダムな文字列を使い、翌日の朝にグループメンバーで協力して文を完成させることで、楽しみつつ就寝・起床時間を安定させることを期待しています。
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### **利用シナリオ**
+1. **前日の夜**
+    - アプリが「じゅもん」を設定する。その後、参加者に1文字を入力場所の情報とともに配布。
+2. **翌朝**
+    - グループごとに設定した入力可能時刻にアクセスすると、文字入力可能ページを表示。
+    - 担当入力箇所に文字を入力し、メンバー間で今日達成するタスクを宣言。
+    - 宣言したタスクに取り組み、夜の「じゅもん」配布時間で報告。
+3. **報告タイム（じゅもん配布時間）**
+    - タスクの達成状況を報告する。
+    - グループ参加人数と同文字数の「じゅもん」が生成され、各ユーザーに1文字が入力場所と共に配布される。
+    - 翌朝に宣言するタスクを記述する
+        - 朝に宣言する際は、既に入力されているタスクから選択する
